@@ -48,7 +48,7 @@ class AutoComplete extends React.Component {
 handleKeyPress(ev) {
   const {keyCode} = ev;
   switch(keyCode) {
-    case BACKSPACE: 
+    case BACKSPACE:
     if (this.inputEl.value === "") {
       const { currentSelection = [] } = this.state;
       if (currentSelection.length > 0) {
@@ -58,15 +58,15 @@ handleKeyPress(ev) {
             currentSelection: prevState.currentSelection
           });
         });
-      } 
-    }        
+      }
+    }
     break;
-    case DOWN_ARROW: 
-      if (this.resultsList) {     
+    case DOWN_ARROW:
+      if (this.resultsList) {
         this.resultsListItem = this.resultsList.firstElementChild;
         if (this.resultsListItem) {
           this.resultsListItem.focus();
-        }      
+        }
         ev.preventDefault();
       }
     default:
@@ -84,7 +84,7 @@ handleKeyPress(ev) {
      clearTimeout(this.currentTimer);
      return;
    }
-   this.currentTimer = setTimeout(() => {     
+   this.currentTimer = setTimeout(() => {
      console.log(currentVal);
      fetch("http://output.jsbin.com/sihagevubu.json")
       .then(results => results.json())
@@ -92,7 +92,7 @@ handleKeyPress(ev) {
         if(data) {
           console.log(data);
           const usStates = Object.values(data);
-          const filtered = usStates.filter(st => {                         
+          const filtered = usStates.filter(st => {
             return st.includes(currentVal);
           });
           this.setState({
@@ -109,7 +109,7 @@ handleKeyPress(ev) {
    }, 300);
  }
 
- _clearResultListItemFocus() {   
+ _clearResultListItemFocus() {
    this.resultsListItem = null;
  }
 
@@ -138,14 +138,14 @@ clearSelection(option) {
 
 handleResultItemKeyDown(keyCode) {
   switch(keyCode) {
-    case DOWN_ARROW: 
+    case DOWN_ARROW:
     if(this.resultsListItem) {
       const nextSibling = this.resultsListItem.nextSibling;
       if (nextSibling) {
         this.resultsListItem = nextSibling;
         this.resultsListItem.focus();
       }
-    }    
+    }
     break;
     case UP_ARROW:
     if(this.resultsListItem) {
@@ -155,14 +155,14 @@ handleResultItemKeyDown(keyCode) {
         this.resultsListItem.focus();
       } else {
         this.resultsListItem = null;
-        this.inputEl.focus();        
+        this.inputEl.focus();
       }
-    } 
+    }
     break;
     default:
     console.log(keyCode);
     break;
-  }  
+  }
 }
 
  _renderResultsList() {
@@ -178,7 +178,7 @@ handleResultItemKeyDown(keyCode) {
                onKeyDown={(ev) => {
                 const {keyCode} = ev;
                 switch(keyCode) {
-                  case ENTER: 
+                  case ENTER:
                   this._addResultItem(result);
                   break;
                   default:
@@ -200,7 +200,7 @@ handleResultItemKeyDown(keyCode) {
  _renderResultOptions() {
   const {currentSelection = []} = this.state;
   return (
-    <div className="result-options-list">    
+    <div className="result-options-list">
       {currentSelection.map((option, index) => {
         return (<ResultItem onCloseClick={this.clearSelection.bind(this, option)} label={option} key={index}/>);
       })}
@@ -218,7 +218,7 @@ handleResultItemKeyDown(keyCode) {
    return (
      <div className="autocomplete">
        <div className="control" onClick={this.handleControlClick}>
-         {this._renderResultOptions()}         
+         {this._renderResultOptions()}
        </div>
        {showResults && this._renderResultsList()}
      </div>
@@ -229,7 +229,10 @@ handleResultItemKeyDown(keyCode) {
 class App extends Component {
   render() {
     return (
-      <AutoComplete/>
+      <div>
+        <span>Enter a US State: </span>
+        <AutoComplete/>
+      </div>
     );
   }
 }
