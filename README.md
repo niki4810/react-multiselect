@@ -1,5 +1,5 @@
 # react-multiselect
-A simple multiselect react component
+A simple multiselect react component [Still in dev mode]
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
